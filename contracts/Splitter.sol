@@ -7,7 +7,7 @@ contract Splitter {
 	// keep track of each recipient and balance
 	mapping (address => uint) public balances;
 
-	event LogSplit(address recipient1, address recipient2, uint amount);
+	event LogDeposit(address sender, address recipient1, address recipient2, uint amount);
 	event LogWithdrawal(address recipient, uint amount);
 
 	function Splitter() {
@@ -26,7 +26,7 @@ contract Splitter {
 
 		balances[recipient1] += splitAmount;
 		balances[recipient2] += splitAmount;
-		LogSplit(recipient1, recipient2, splitAmount);
+		LogDeposit(msg.sender, recipient1, recipient2, splitAmount);
 
 		return true;
 	}
