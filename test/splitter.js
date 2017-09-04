@@ -41,4 +41,15 @@ contract('Splitter', function(accounts) {
       });
   });
 
+  it("should credit the sender with the leftovers", function() {
+    var sendAmount = 11;
+
+    return splitter.split(bob, carol, {from: alice, value: sendAmount})
+      .then(txObject => {
+        return splitter.balances(alice);
+      })
+      .then(_balance => {
+        assert.strictEqual(_balance.toNumber(), 1);
+      });
+  });
 });
